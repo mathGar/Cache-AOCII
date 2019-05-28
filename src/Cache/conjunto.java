@@ -1,10 +1,10 @@
 package Cache;
 
-public class palavra {
+public class conjunto {
     
     private int bitVal, tag, dados;
 
-    public palavra(int bitVal, int tag, int dados) {
+    public conjunto(int bitVal, int tag, int dados) {
         this.bitVal = bitVal;
         this.tag = tag;
         this.dados = dados;
