@@ -1,16 +1,16 @@
 package Cache;
 
-public class set {
+public class Set {
     
     private int bitVal, tag, dados;
 
-    public set(){
+    public Set(){
         this.bitVal = 0;
         this.tag = 0;
         this.dados = 0;
     }
     
-   /* public set(int bitVal, int tag, int dados) {
+   /* public Set(int bitVal, int tag, int dados) {
         this.bitVal = bitVal;
         this.tag = tag;
         this.dados = dados;
