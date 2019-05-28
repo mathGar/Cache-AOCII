@@ -1,14 +1,20 @@
 package Cache;
 
-public class word {
+public class set {
     
     private int bitVal, tag, dados;
 
-    public word(int bitVal, int tag, int dados) {
+    public set(){
+        this.bitVal = 0;
+        this.tag = 0;
+        this.dados = 0;
+    }
+    
+   /* public set(int bitVal, int tag, int dados) {
         this.bitVal = bitVal;
         this.tag = tag;
         this.dados = dados;
-    }
+    }*/
     
     public int getBitVal() {
         return bitVal;
