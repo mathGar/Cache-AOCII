@@ -29,14 +29,14 @@ public class Simulator {
         
         cache = new Cache(nSets, bSize, assoc, placement);
         
-        System.out.println(cache.getnSets());
+        /*System.out.println(cache.getnSets());
         System.out.println(cache.getbSize());
         System.out.println(cache.getAssoc());
         System.out.println(cache.getcSize());
         System.out.println(cache.getcPlacement());
         System.out.println(cache.getNbTag());
         System.out.println(cache.getNbIndex());
-        System.out.println(cache.getNbOffset());
+        System.out.println(cache.getNbOffset());*/
         
         /*Achar tag e indice para comparacao na Cache
         this.index = address%this.nSets;
