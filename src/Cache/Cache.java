@@ -15,12 +15,12 @@ public class Cache {
     private int hits, misses, compMiss, confMiss, capMiss;
     protected final Set[][] sets;   //Cache propriamente dita
 
-    public Cache(int nSets, int bSize, int assoc, int placement) {
+    public Cache(int nSets, int bSize, int assoc, int placement, int cSize) {
         this.nSets = nSets;
         this.bSize = bSize;
         this.assoc = assoc;
         this.cPlacement = placement;
-        this.cSize = nSets * bSize * assoc;
+        this.cSize = cSize;
         this.nbOffset = (int)(log(this.bSize)/log(2));
         this.nbIndex = (int)(log(this.nSets)/log(2));
         this.nbTag = (int) 32 - nbOffset - nbIndex;
