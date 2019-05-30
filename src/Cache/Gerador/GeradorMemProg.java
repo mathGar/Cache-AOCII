@@ -14,7 +14,6 @@ public class GeradorMemProg {
             PrintWriter outFile = new PrintWriter(new FileWriter(file));
             FileOutputStream outFileBin = new FileOutputStream("arqBinario1.dat");
             DataOutputStream out = new DataOutputStream(outFileBin);
-
             int numGerado = 0;
             Random r = new Random();
             for (int i = 0; i < 100; i++) {

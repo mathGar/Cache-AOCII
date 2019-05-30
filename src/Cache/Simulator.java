@@ -24,7 +24,7 @@ public class Simulator {
         if (aux == 1) {
             System.out.println("Choose cache's placement policy: \n0- Direct Mapping \n1- Associative Mapping \n2- Fully Associative Mapping/n");
             placement = s.nextInt();
-            System.out.println("\n- The following data must be a multiple of two -");
+            System.out.println("\n- The following data must be a multiple of two -\n");
             switch (placement) {
                 case 0:
                     System.out.println("Enter the number of sets and block size(bytes)");

@@ -18,7 +18,6 @@ public class ReadFile {
         this.inputstream = new FileInputStream("arqBinario1.dat");
         this.data = new DataInputStream(inputstream);
         address = new ArrayList();
-
         while (data.available() != 0) {
             aux = Integer.toBinaryString(data.readInt());
             while (aux.length() != 32) {

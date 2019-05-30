@@ -10,11 +10,6 @@ public class Set {
         this.tag = null;
     }
 
-    /* public Set(int bitVal, int tag, int dados) {
-        this.bitVal = bitVal;
-        this.tag = tag;
-        this.dados = dados;
-    }*/
     public int getBitVal() {
         return bitVal;
     }
@@ -30,5 +25,4 @@ public class Set {
     public void setTag(String tag) {
         this.tag = tag;
     }
-
 }

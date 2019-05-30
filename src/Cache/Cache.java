@@ -88,7 +88,7 @@ public class Cache {
                     }
                 }
                 if (full) {
-                    this.capMiss++;                                   //misses de capacidade
+                    this.capMiss++;
                     this.misses++;
                 } else {
                     this.confMiss++;
@@ -226,5 +226,4 @@ public class Cache {
     public void setCapMiss(int capMiss) {
         this.capMiss = capMiss;
     }
-
 }
