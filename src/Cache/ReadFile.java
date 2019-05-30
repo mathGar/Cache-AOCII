@@ -11,7 +11,7 @@ public class ReadFile {
 
     private InputStream inputstream;
     private DataInputStream data;
-    private ArrayList<String> address;
+    protected ArrayList<String> address;
     private String aux;
 
     public ReadFile() throws FileNotFoundException, IOException {

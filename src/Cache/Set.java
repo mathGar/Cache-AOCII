@@ -2,12 +2,12 @@ package Cache;
 
 public class Set {
     
-    private int bitVal, tag, dados;
+    private int bitVal;
+    private String tag;
 
     public Set(){
         this.bitVal = 0;
-        this.tag = 0;
-        this.dados = 0;
+        this.tag = null;
     }
     
    /* public Set(int bitVal, int tag, int dados) {
@@ -24,20 +24,12 @@ public class Set {
         this.bitVal = bitVal;
     }
 
-    public int getTag() {
+    public String getTag() {
         return tag;
     }
 
-    public void setTag(int tag) {
+    public void setTag(String tag) {
         this.tag = tag;
-    }
-
-    public int getDados() {
-        return dados;
-    }
-
-    public void setDados(int dados) {
-        this.dados = dados;
     }
     
 }

@@ -1,12 +1,13 @@
 package Cache;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Simulator {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
-        int nSets, bSize, assoc, cSize, placement, aux;
+        int nSets, bSize, assoc, placement, aux;
         String aux2 = "Direct Mapping";
         Scanner s = new Scanner(System.in);
         Cache cache;
@@ -41,14 +42,12 @@ public class Simulator {
                 case 2:
                     System.out.println("Enter with the block size(bytes) and associativity");
                     nSets = 1;
-                    assoc = s.nextInt();
                     bSize = s.nextInt();
+                    assoc = s.nextInt();
                     aux2 = "Fully Associative Mapping";
                 break;
             }
-            cSize = nSets * bSize * assoc;
             System.out.println("Cache configuration:");
-            System.out.println(" - Size: " + cSize + " Bytes");
             System.out.println(" - Number of sets: " + nSets);
             System.out.println(" - Block size: " + bSize);
             System.out.println(" - Assosiativity: " + assoc);
@@ -60,32 +59,30 @@ public class Simulator {
             bSize = 4;
             assoc = 1;
             placement = 0;
-            cSize = nSets * bSize * assoc;
-            System.out.println(" - Size: " + cSize + " Bytes");
             System.out.println(" - Number of sets: " + nSets);
             System.out.println(" - Block size: " + bSize);
             System.out.println(" - Assosiativity: " + assoc);
             System.out.println(" - Placement policy: " + aux2);
         }
         
-        cache = new Cache(nSets, bSize, assoc, placement, cSize);
-        
-        
-        
-        /*System.out.println(cache.getnSets());
-        System.out.println(cache.getbSize());
-        System.out.println(cache.getAssoc());
-        System.out.println(cache.getcSize());
-        System.out.println(cache.getcPlacement());
-        System.out.println(cache.getNbTag());
-        System.out.println(cache.getNbIndex());
-        System.out.println(cache.getNbOffset());*/
-        
-        /*Achar tag e indice para comparacao na Cache
-        this.index = address%this.nSets;
-        this.tag = (address >> (byte)nbOffset + nbIndex);  
-        */
-        
+        cache = new Cache(nSets, bSize, assoc, placement);
+        reader = new ReadFile();
+        for(int i = 0; i < reader.address.size(); i++)
+            cache.requisition(reader.address.get(i));
+        System.out.println("\n\n");
+        System.out.println("Number of sets: " + cache.getnSets());
+        System.out.println("Block size: " + cache.getbSize());
+        System.out.println("Associativity: " + cache.getAssoc());
+        System.out.println("Cache size: " + cache.getcSize());
+        System.out.println("Cache placement: " + cache.getcPlacement());
+        System.out.println("Number of bits - Tag: " + cache.getNbTag());
+        System.out.println("Number of bits - Index: " + cache.getNbIndex());
+        System.out.println("Number of bits - Offset: " + cache.getNbOffset());
+        System.out.println("Capacity misses: " + cache.getCapMiss());
+        System.out.println("Conflict misses: " + cache.getConfMiss());
+        System.out.println("Compulsory misses: " + cache.getCompMiss());
+        System.out.println("Total misses: " + cache.getMisses());
+        System.out.println("Hits: " + cache.getHits());
         
     }
     
