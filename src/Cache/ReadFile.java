@@ -19,13 +19,13 @@ public class ReadFile {
         this.data = new DataInputStream(inputstream);
         address = new ArrayList();
 
-        while(data.available() != 0) {
+        while (data.available() != 0) {
             aux = Integer.toBinaryString(data.readInt());
             while (aux.length() != 32) {
                 aux = '0' + aux;
             }
             address.add(aux);
-        }   
+        }
         data.close();
     }
 }
