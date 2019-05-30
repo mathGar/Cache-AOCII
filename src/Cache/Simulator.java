@@ -10,6 +10,7 @@ public class Simulator {
         String aux2 = "Direct Mapping";
         Scanner s = new Scanner(System.in);
         Cache cache;
+        ReadFile reader;
         
         nSets = 0;
         bSize = 0;
