@@ -13,7 +13,7 @@ public class Cache {
     private int nbTag;      //Numero de bits da tag
     private int nbIndex;    //Numero de bits do indice
     private int nbOffset;   //Numero de bits do offset
-    private int hits, misses, compMiss, confMiss, capMiss, controlSize;
+    private int hits, misses, compMiss, confMiss, capMiss;
     private String auxTag, sPlacement;
     private int auxIndex;
     protected final Set[][] sets;   //Cache propriamente dita
@@ -33,7 +33,6 @@ public class Cache {
         this.compMiss = 0;
         this.confMiss = 0;
         this.capMiss = 0;
-        this.controlSize = 0;  //Variavel de controle para memoria cheia (miss de capacidade)
         this.sets = new Set[nSets][assoc];
 
         int aux, aux2;
@@ -48,6 +47,7 @@ public class Cache {
     public void requisition(String address) {
         int aux;
         boolean f = false;
+        boolean full = false;
         this.splittedInfo(address);
 
         for (aux = 0; aux < this.assoc; aux++) {
@@ -57,12 +57,11 @@ public class Cache {
                 f = true;        //Flag de controle setada pra true pois a falta foi corrigida
                 this.sets[this.auxIndex][aux].setBitVal(1);  //Escreve o dado na cache
                 this.sets[this.auxIndex][aux].setTag(auxTag);
-                this.controlSize++;
                 return;
-            } else if (this.sets[this.auxIndex][aux].getBitVal() == 1) {    //Caso o bit de validade seja 1 ocorrera o teste para
+            } else if (this.sets[this.auxIndex][aux].getBitVal() == 1) {           //Caso o bit de validade seja 1 ocorrera o teste para
                 if (this.auxTag.equals(this.sets[this.auxIndex][aux].getTag())) {  //ver se a tag se encontra na cache
                     this.hits++; //Caso a tag esteja na cache ocorre um hit
-                    f = true;  //Flag de controle setada para true pois nao houve falta
+                    f = true;    //Flag de controle setada para true pois nao houve falta
                     return;
                 } else {
                     f = false; //Flag de controle setada para false pois houve uma falta nao corrigida
@@ -72,18 +71,14 @@ public class Cache {
 
         if (!f) {
             Random r = new Random();
-            aux = r.nextInt(assoc);  //Valor aleatorio para ser feita a substituicao
-            this.sets[this.auxIndex][aux].setBitVal(1);//Escreve o dado na posicao aleatoria dentro da via
-            this.sets[this.auxIndex][aux].setTag(auxTag);
-            this.controlSize++;
 
             if (this.cPlacement == 2) { //Caso o mapeamento seja totalmente associativo apenas ocorrera
                 this.capMiss++;         //misses de capacidade e nao de conflito
                 this.misses++;
             } else if (this.cPlacement == 0) {  //Caso mapeamento direto percorre a cache para ver se sera
-                boolean full = true;            //miss por capacidade ou conflito
-                for (int i = 0; i < this.nSets; i++) { 
-                    if (this.sets[i][0].getBitVal() == 0) {   
+                full = true;                    //miss por capacidade ou conflito
+                for (int i = 0; i < this.nSets; i++) {
+                    if (this.sets[i][0].getBitVal() == 0) {
                         full = false;
                     }
                 }
@@ -94,23 +89,36 @@ public class Cache {
                     this.confMiss++;
                     this.misses++;
                 }
-            } else {
-                if (this.controlSize >= (this.assoc * this.nSets)) {  //Testa se a memoria esta cheia para informar
-                    this.capMiss++;                                   //misses de capacidade
+            } else {                                    //Caso mapeamento por conjunto associativo
+                full = true;                            //percorre a cache para ver se sera miss por capacidade
+                for (int i = 0; i < this.nSets; i++) {  //ou conflito
+                    for (int j = 0; j < this.assoc; j++) {
+                        if (this.sets[i][j].getBitVal() == 0) {
+                            full = false;
+                        }
+                    }
+                }
+                if (full) {          //Testa se a memoria esta cheia para informar
+                    this.capMiss++;  //misses de capacidade
                     this.misses++;
                 } else {
-                    this.confMiss++;
+                    this.confMiss++;  //Caso contrario, ocorre miss de conflito
                     this.misses++;
                 }
+                aux = r.nextInt(assoc);                      //Valor aleatorio para ser feita a substituicao
+                this.sets[this.auxIndex][aux].setBitVal(1);  //Escreve o dado na posicao aleatoria dentro da via
+                this.sets[this.auxIndex][aux].setTag(auxTag);
             }
         }
     }
 
     private void splittedInfo(String address) { //Separa bits de tag e indice
-        this.auxTag = address.substring(this.nbTag);
+
         if (this.cPlacement != 2) {
+            this.auxTag = address.substring(0, nbTag);
             this.auxIndex = Integer.parseInt(address.substring(this.nbTag, this.nbTag + this.nbIndex), 2);
-        } else {
+        } else if (this.cPlacement == 2) {
+            this.auxTag = address.substring(0, nbTag);
             this.auxIndex = 0;
         }
     }
@@ -226,4 +234,13 @@ public class Cache {
     public void setCapMiss(int capMiss) {
         this.capMiss = capMiss;
     }
+
+    public String getAuxTag() {
+        return auxTag;
+    }
+
+    public int getAuxIndex() {
+        return auxIndex;
+    }
+
 }

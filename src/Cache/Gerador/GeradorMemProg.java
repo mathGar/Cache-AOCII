@@ -16,14 +16,14 @@ public class GeradorMemProg {
             DataOutputStream out = new DataOutputStream(outFileBin);
             int numGerado = 0;
             Random r = new Random();
-            for (int i = 0; i < 100; i++) {
-                numGerado = r.nextInt(10);
+            for (int i = 0; i < 10000; i++) {
+                numGerado = r.nextInt(100);
                 outFile.println(numGerado);
                 out.writeInt(numGerado);
                 System.out.println(numGerado);
             }
-            for (int i = 0; i < 100; i++) {
-                numGerado = r.nextInt(1000);
+            for (int i = 0; i < 10000; i++) {
+                numGerado = r.nextInt(10000);
                 outFile.println(numGerado);
                 out.writeInt(numGerado);
                 System.out.println(numGerado);
